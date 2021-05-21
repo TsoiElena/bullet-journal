@@ -1,0 +1,34 @@
+.preveu {
+    padding-left: 60px;
+}
+
+.heading {
+    font-size: 50px;
+    margin-block-end: 20px;
+    margin-block-start: 20px;
+}
+
+.text {
+    font-size: 25px;
+    padding-left: 20px;
+}
+
+.textHead {
+    display: inline-block;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.podtext {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.text ul {
+    margin-block-end: 10px;
+    margin-block-start: 10px;
+    padding-inline-start: 0;
+    font-weight: bold;
+}
+

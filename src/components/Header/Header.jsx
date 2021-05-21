@@ -1,50 +1,49 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React, {useState} from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
+import style from './style.module.css'
+import {NavLink} from "react-router-dom"
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
+const Header = ({user, setUser}) => {
+    const [anchorEl, setAnchorEl] = useState(null)
+    const menuItems = [
+        {name: 'Календарь', route: '/calendar'},
+        {name: 'День', route: '/day'},
+        {name: 'Неделя', route: '/week'},
+        {name: 'Месяц', route: '/month'},
+        {name: 'Фильмы/мультфтльмы', route: '/films-cartoons'},
+        {name: 'Книги', route: '/books'},
+        {name: 'Красота и здоровье', route: '/beauty-and-health'},
+        {name: 'Результаты', route: '/results'}
+    ]
 
-const Header = () => {
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const auth = true
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleLogout = () => {
+        setAnchorEl(null)
+        setUser(null)
+        localStorage.removeItem('name')
+        localStorage.removeItem('email')
+        localStorage.removeItem('surname')
+    }
 
     return (
-        <div className={classes.root}>
+        <div className={style.header}>
             <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                <Toolbar className={style.headerContent}>
+                    <Typography variant="h6">
                         Bullet journal
                     </Typography>
-                    {auth && (
-                        <div>
-                            <IconButton onClick={handleMenu} color="inherit">
-                                <AccountCircle />
+                    {user
+                        ? <div className={style.userBlock}>
+                            <Typography variant="h6">
+                                {`${user.name} ${user.surname}`}
+                            </Typography>
+                            <IconButton onClick={(event) => setAnchorEl(event.currentTarget)} color="inherit">
+                                <AccountCircle/>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -58,17 +57,29 @@ const Header = () => {
                                     vertical: 'top',
                                     horizontal: 'right',
                                 }}
-                                open={open}
-                                onClose={handleClose}
+                                open={Boolean(anchorEl)}
+                                onClose={() => setAnchorEl(null)}
                             >
-                                <MenuItem onClick={() => console.log(1)}>Profile</MenuItem>
-                                <MenuItem onClick={() => console.log(2)}>My account</MenuItem>
+                                {menuItems.map(
+                                    (menuItem) =>
+                                        <NavLink key={menuItem.route} to={menuItem.route}
+                                                 activeClassName={style.active}>
+                                            <MenuItem>{menuItem.name} </MenuItem>
+                                        </NavLink>
+                                )}
+                                <MenuItem onClick={handleLogout}>Выход</MenuItem>
                             </Menu>
                         </div>
-                    )}
+                        : <Typography variant="h6">
+                            <NavLink to='log-in'>
+                                Log In
+                            </NavLink>
+                        </Typography>
+                    }
+
                 </Toolbar>
             </AppBar>
         </div>
-    );
+    )
 }
 export default Header

@@ -1,0 +1,30 @@
+.wrapper{
+    display: grid;
+    grid-template-areas:
+"cf lf lt ct";
+    grid-template-columns: 1fr 3fr 3fr 1fr;
+    height: 905px;
+
+}
+
+.calendarFirst{
+grid-area: cf;
+    background-color: #3f51b2;
+}
+
+.listFirst{
+    grid-area: lf;
+    background-color: antiquewhite;
+    border-right: 2px black solid;
+    box-sizing: border-box;
+}
+
+.listTwo{
+    grid-area: lt;
+    background-color: antiquewhite;
+}
+
+.calendarTwo{
+    grid-area: ct;
+    background-color: #3f51b2;
+}

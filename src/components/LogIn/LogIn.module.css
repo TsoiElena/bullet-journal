@@ -1,0 +1,50 @@
+.logwrapper{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 100px;
+}
+
+.login {
+    flex-direction: column;
+}
+
+.logwrapper h3 {
+    text-align: center;
+}
+
+.logform {
+    flex-direction: column;
+    align-self: center;
+    margin: 20px;
+    width: 400px;
+}
+
+.loginput{
+    width: 400px;
+    margin-bottom: 15px !important;
+}
+
+.logbutton {
+    width: 400px;
+}
+
+.auth {
+    flex-direction: column;
+}
+
+.authform{
+    flex-direction: column;
+    margin: 20px;
+    align-self: center;
+
+}
+
+.authinput {
+    flex-direction: column;
+    margin-bottom: 15px !important;
+    width: 400px;
+}
+
+.authbutton {
+    width: 400px;
+}
