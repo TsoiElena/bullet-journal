@@ -2,13 +2,13 @@ import React from 'react';
 import api from '../../api'
 import {TextField, Checkbox, FormControlLabel} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import styles from './LogIn.module.css'
+import styles from './style.module.scss'
 import {Redirect} from "react-router-dom";
 
 const LogIn = ({user, setUser}) => {
     const [loginData, setLoginData] = React.useState({
-        email: 'gergre@eag.weg',
-        password: 'test11111',
+        email: '',
+        password: '',
         rememberMe: false
     })
     const [registrationData, setRegistrationData] = React.useState({
@@ -22,8 +22,9 @@ const LogIn = ({user, setUser}) => {
 
     const isRegistrationFailed = registrationData.password.length < 8 || registrationData.password !== registrationData.confirmedPassword
 
-    const setLocalStorage = ({email, name, surname}) => {
+    const setLocalStorage = ({email, _id, name, surname}) => {
         localStorage.setItem('email', email)
+        localStorage.setItem('id', _id)
         localStorage.setItem('name', name)
         localStorage.setItem('surname', surname)
     }
@@ -169,6 +170,16 @@ const LogIn = ({user, setUser}) => {
                             className={styles.authinput}
                         />
                     </div>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={registrationData.rememberMe}
+                                onChange={e => setRegistrationData({...registrationData, rememberMe: e.target.checked})}
+                                color="primary"
+                            />
+                        }
+                        label="Запомнить меня"
+                    />
                     <Button
                         variant="outlined"
                         color="primary"

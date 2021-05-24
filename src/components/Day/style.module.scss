@@ -1,0 +1,96 @@
+@import "src/index";
+
+.dayWrapper {
+  display: grid;
+  grid-template-areas:
+"n l b";
+  grid-template-columns: 2fr 6fr 2fr;
+  min-height: 905px;
+  box-sizing: border-box;
+}
+
+.list {
+  grid-area: l;
+  background-color: $body-color;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-shadow: 0 3px 7px 1px $shadow-color;
+  margin: 18px;
+  border-radius: 10px;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.table {
+  margin-top: 16px;
+  background: $body-color;
+}
+
+.statusCell {
+  width: 50px;
+}
+
+.notes {
+  grid-area: n;
+}
+
+.datesAndBuy {
+  grid-area: b;
+}
+
+.InfoBlocks{
+  background-color: $secondary-color;
+  flex-direction: column;
+  margin: 10px;
+  box-shadow: 0 3px 7px 1px $shadow-color;
+  border-radius: 10px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.dates {
+  min-height: 200px;
+}
+
+.buy {
+  min-height: 675px;
+}
+
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.eventsHeader h3 {
+  margin-block: 4px 0;
+}
+
+.InfoBlocks ul {
+  margin-block: 4px 0;
+}
+
+.modalForm {
+  background-color: #fff;
+  padding: 32px;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.modalInput {
+  width: 100%;
+  margin-right: 12px;
+}

@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom"
 
 const AuthCheck = ({children, user}) => {
     if (!user) {
-        return <Redirect to='/*'/>
+        return <Redirect to='/'/>
     }
     return (
         <>{children}</>

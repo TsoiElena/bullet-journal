@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
-import style from './style.module.css'
+import style from './style.module.scss'
 import {NavLink} from "react-router-dom"
 
 const Header = ({user, setUser}) => {
@@ -14,9 +14,8 @@ const Header = ({user, setUser}) => {
     const menuItems = [
         {name: 'Календарь', route: '/calendar'},
         {name: 'День', route: '/day'},
-        {name: 'Неделя', route: '/week'},
         {name: 'Месяц', route: '/month'},
-        {name: 'Фильмы/мультфтльмы', route: '/films-cartoons'},
+        {name: 'Фильмы/мультфильмы', route: '/films-cartoons'},
         {name: 'Книги', route: '/books'},
         {name: 'Красота и здоровье', route: '/beauty-and-health'},
         {name: 'Результаты', route: '/results'}
@@ -72,7 +71,7 @@ const Header = ({user, setUser}) => {
                         </div>
                         : <Typography variant="h6">
                             <NavLink to='log-in'>
-                                Log In
+                                Войти
                             </NavLink>
                         </Typography>
                     }

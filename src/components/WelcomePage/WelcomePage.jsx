@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './WelcomePage.module.css'
+import styles from './style.module.scss'
 
 const WelcomePage = () => {
     return (
