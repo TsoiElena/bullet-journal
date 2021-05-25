@@ -11,6 +11,13 @@ const datesCompare = (date, reqDate) => {
         && taskDate.getDate() === reqTaskDate.getDate()
 }
 
+const compareMonthDate = (date, reqDate) => {
+    const taskDate = new Date(date)
+    const reqTaskDate = new Date(reqDate)
+    return taskDate.getFullYear() === reqTaskDate.getFullYear()
+    && taskDate.getMonth() === reqTaskDate.getMonth()
+}
+
 //add task
 router.post('/add', async (req, res) => {
     const data = req.body
@@ -36,6 +43,18 @@ router.post('/:userId', async (req, res) => {
 
     res.json({
         data: date ? tasks.filter(task => datesCompare(task.date, date)) : tasks.filter(task => task.date.getFullYear() === year)
+    })
+})
+
+//getTask month
+router.post('/month/:userId', async (req, res) => {
+    const {date} = req.body
+
+    const tasks = await Task.find({userId: req.params.userId})
+    if (!tasks) return res.json({message: 'Task are not found'})
+
+    res.json({
+        data: tasks.filter(task => compareMonthDate(task.date, date))
     })
 })
 

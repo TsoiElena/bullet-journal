@@ -6,7 +6,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
     },
     type: {
-        type: Number, /*0-global, 1-day, 2-buy*/
+        type: Number, /*0-global tasks, 1-day tasks, 2-buy to day, 3-month tasks*/
         required: true,
         default: 1
     },

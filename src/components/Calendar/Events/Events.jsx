@@ -62,7 +62,7 @@ const Events = ({user, selectedYear, selectedDate, handleDateChange}) => {
             </div>
             <ul>
                 {events && events.sort(compareDates).map(elem => {
-                        const date = new Date(elem.date) 
+                        const date = new Date(elem.date)
                         return <li key={elem._id}>
                             {date.getDate()}.{date.getMonth() + 1} - {elem.title}
                         </li>

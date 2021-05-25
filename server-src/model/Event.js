@@ -6,7 +6,7 @@ const eventSchema = new mongoose.Schema({
         required: true,
     },
     type: {
-        type: Number, /*0-birthdays, 1-iportant dtes, 2-notes*/
+        type: Number, /*0-birthdays, 1-iportant dtes, 2-notes, 3 - notes month*/
         required: true,
     },
     title: {

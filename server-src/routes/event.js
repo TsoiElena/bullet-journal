@@ -11,6 +11,12 @@ const datesCompare = (date, reqDate) => {
         && eventDate.getDate() === reqEventDate.getDate()
 }
 
+const monthDatesCompare = (date, reqDate) => {
+    const eventDate = new Date(date)
+    const reqEventDate = new Date(reqDate)
+    return eventDate.getFullYear() === reqEventDate.getFullYear()
+        && eventDate.getMonth() === reqEventDate.getMonth()
+}
 //add event
 router.post('/add', async (req, res) => {
     const data = req.body
@@ -36,6 +42,17 @@ router.post('/:userId', async (req, res) => {
 
     res.json({
         data: date ? events.filter(event => datesCompare(event.date, date)) : events.filter(event => event.date.getFullYear() === year)
+    })
+})
+
+router.post('/month/:userId', async (req, res) => {
+    const {date} = req.body
+
+    const events = await Event.find({userId: req.params.userId})
+    if (!events) return res.json({message: 'Event are not found'})
+
+    res.json({
+        data: events.filter(event => monthDatesCompare(event.date, date))
     })
 })
 
