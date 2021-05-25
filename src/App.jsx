@@ -47,7 +47,7 @@ const App = () => {
                         <AuthCheck user={user}><FilmsAndCartoons user={user} /></AuthCheck>
                     </Route>
                     <Route path='/books'>
-                        <AuthCheck user={user}><Books/></AuthCheck>
+                        <AuthCheck user={user}><Books user={user} /></AuthCheck>
                     </Route>
                     <Route path='/beauty-and-health'>
                         <AuthCheck user={user}><BeautyAndHealth/></AuthCheck>

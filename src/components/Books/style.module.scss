@@ -1,0 +1,61 @@
+@import "src/index";
+
+.bookWrapper{
+  display: flex;
+  min-height: 905px;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 100%;
+}
+
+.list {
+  background-color: $body-color;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-shadow: 0 3px 7px 1px $shadow-color;
+  margin: 18px;
+  border-radius: 10px;
+  width: 70%;
+}
+
+.listHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.table {
+  margin-top: 16px;
+}
+
+.statusCell {
+  width: 50px;
+}
+
+.authtorCell{
+  width: 250px;
+}
+
+
+.modalForm {
+  background-color: #fff;
+  padding: 32px;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.modalInput {
+  width: 80%;
+  margin: 12px;
+}
