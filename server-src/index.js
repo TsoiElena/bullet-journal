@@ -19,6 +19,7 @@ const taskRoute = require('./routes/task')
 const eventRoute = require('./routes/event')
 const filmRoute = require('./routes/film')
 const bookRoute = require('./routes/book')
+const trekerRoute = require('./routes/treker')
 
 //Middleware
 app.use(express.json())
@@ -30,6 +31,7 @@ app.use('/tasks', taskRoute)
 app.use('/events', eventRoute)
 app.use('/films', filmRoute)
 app.use('/books', bookRoute)
+app.use('/trekers', trekerRoute)
 
 
 

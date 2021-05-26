@@ -17,7 +17,7 @@ const Header = ({user, setUser}) => {
         {name: 'Месяц', route: '/month'},
         {name: 'Фильмы/мультфильмы', route: '/films-cartoons'},
         {name: 'Книги', route: '/books'},
-        {name: 'Красота и здоровье', route: '/beauty-and-health'},
+        {name: 'Трекеры', route: '/trekers'},
         {name: 'Результаты', route: '/results'}
     ]
 

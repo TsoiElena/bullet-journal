@@ -8,7 +8,7 @@ import Day from "./components/Day/Day";
 import Month from "./components/Month/Month";
 import FilmsAndCartoons from "./components/FilmsAndCartoons/FilmsAndCartoons";
 import Books from "./components/Books/Books";
-import BeautyAndHealth from "./components/BeautyAndHealth/BeautyAndHealth";
+import Trekers from "./components/Trekers/Trekers";
 import Results from "./components/Results/Results";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import LogIn from "./components/LogIn/LogIn";
@@ -49,8 +49,8 @@ const App = () => {
                     <Route path='/books'>
                         <AuthCheck user={user}><Books user={user} /></AuthCheck>
                     </Route>
-                    <Route path='/beauty-and-health'>
-                        <AuthCheck user={user}><BeautyAndHealth/></AuthCheck>
+                    <Route path='/trekers'>
+                        <AuthCheck user={user}><Trekers user={user} /></AuthCheck>
                     </Route>
                     <Route path='/results'>
                         <AuthCheck user={user}><Results/></AuthCheck>
