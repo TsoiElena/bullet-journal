@@ -5,9 +5,8 @@ import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ruLocale from "date-fns/locale/ru";
 import {
-    Button, Checkbox, FormControl,
-    FormControlLabel, MenuItem, Modal,
-    Paper, Select,
+    Button, Checkbox, Modal,
+    Paper,
     Table,
     TableBody,
     TableCell,
@@ -105,7 +104,7 @@ const Trekers = ({user}) => {
                             <TableRow>
                                 <TableCell>Название</TableCell>
                                 {daysMonth && daysMonth.map((dayMonth, index) => (
-                                    <TableCell key={index}> {dayMonth.title} </TableCell>
+                                    <TableCell key={index} className={styles.statusCell}> {dayMonth.title} </TableCell>
                                 ))}
 
                             </TableRow>
@@ -117,6 +116,7 @@ const Trekers = ({user}) => {
                                     {daysMonth && daysMonth.map((day, index) => (
                                         <TableCell key={index} className={styles.statusCell}>
                                             <Checkbox
+                                                className={styles.checkbox}
                                                 checked={treker.days.filter(item => isDatesEqual(item.date, day.date)).length}
                                                 onChange={() => changeTrekerStatus(treker._id, day.date)}
                                                 color="primary"
