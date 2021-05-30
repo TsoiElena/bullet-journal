@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../style.module.scss'
 import {
-    Button, Checkbox,
-    FormControlLabel,
+    Button,
+    Checkbox,
     Modal,
     Paper,
     Table,
     TableBody,
-    TableCell, TableContainer,
+    TableCell,
+    TableContainer,
     TableHead,
     TableRow,
     TextField,
@@ -94,14 +95,10 @@ const Multfilms = ({user, selectedYear}) => {
                         {mults && mults.map(mult => (
                             <TableRow key={mult._id}>
                                 <TableCell className={styles.statusCell}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={mult.isReady}
-                                                onChange={e => changeMultStatus(mult._id, e.target.checked)}
-                                                color="primary"
-                                            />
-                                        }
+                                    <Checkbox
+                                        checked={mult.isReady}
+                                        onChange={e => changeMultStatus(mult._id, e.target.checked)}
+                                        color="primary"
                                     />
                                 </TableCell>
                                 <TableCell>{mult.title}</TableCell>

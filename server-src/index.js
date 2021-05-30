@@ -20,6 +20,7 @@ const eventRoute = require('./routes/event')
 const filmRoute = require('./routes/film')
 const bookRoute = require('./routes/book')
 const trekerRoute = require('./routes/treker')
+const moneyRoute = require('./routes/money')
 
 //Middleware
 app.use(express.json())
@@ -32,6 +33,7 @@ app.use('/events', eventRoute)
 app.use('/films', filmRoute)
 app.use('/books', bookRoute)
 app.use('/trekers', trekerRoute)
+app.use('/moneys', moneyRoute)
 
 
 

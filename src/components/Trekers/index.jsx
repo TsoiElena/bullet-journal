@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-const Trekers = ({user}) => {
+const Treker = ({user}) => {
     const [trekers, setTrekers] = useState(false)
     const [daysMonth, setDaysMonth] = useState([])
     const [selectedDate, handleDateChange] = useState(new Date())
@@ -157,4 +157,4 @@ const Trekers = ({user}) => {
     );
 }
 
-export default Trekers;
+export default Treker;

@@ -1,69 +1,68 @@
 import React, {useEffect, useState} from 'react';
 import styles from './style.module.scss'
 import {
-    TextField,
     Checkbox,
-    Paper,
-    TableContainer,
-    Table,
-    TableRow,
-    TableBody,
-    TableHead,
     Modal,
-    Button,
-    TableCell, FormControlLabel
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField,
+} from "@material-ui/core";
+import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers"
+import DateFnsUtils from "@date-io/date-fns"
+import ruLocale from "date-fns/locale/ru"
+import Button from "@material-ui/core/Button";
 import api from "../../api";
-import DateFnsUtils from "@date-io/date-fns";
-import ruLocale from "date-fns/locale/ru";
-import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import Notes from "./Notes/Notes";
-import Dates from "./Dates/Dates";
+import AddIcon from "@material-ui/icons/Add";
+import Dates from "./Dates";
+import Buy from "./Buy";
+import Notes from "./Notes";
 
-
-
-const Month = ({user}) => {
-    const [tasksMonth, setTasksMonth] = useState(null)
-    const [modalOpen, setModalOpen] = useState(false)
+const Day = ({user}) => {
+    const [tasks, setTasks] = useState(null)
     const [selectedDate, handleDateChange] = useState(new Date());
-    const [taskMonthAdd, setTaskMonthAdd] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [taskTitle, setTitle] = useState('')
 
     const handleTaskAdd = async (e) => {
         e.preventDefault()
         const response = await api.post('tasks/add', {
-            title: taskMonthAdd,
+            title: taskTitle,
             date: selectedDate,
-            userId: user._id,
-            type: 3
+            userId: user._id
         })
-        setTasksMonth([...tasksMonth, response.data.data])
-        setTaskMonthAdd('')
+        setTasks([...tasks, response.data.data])
+        setTitle('')
         setModalOpen(false)
     }
 
     const getTasks = async () => {
-        const response = await api.post(`tasks/month/${user._id}`, {date: selectedDate})
-        setTasksMonth(response.data.data.filter(task => task.type === 3))
+        const response = await api.post(`tasks/${user._id}`, {date: selectedDate})
+        setTasks(response.data.data.filter(task => task.type === 1 ))
     }
 
     const changeTaskStatus = async (taskId, taskStatus) => {
         const response = await api.patch('tasks/', {taskId, taskStatus})
         const {_id, isReady} = response.data.data
-        const tasksData = tasksMonth.map(task => {
-            if (task._id === _id) {
+        const tasksData = tasks.map(task => {
+            if(task._id === _id) {
                 task.isReady = isReady
             }
             return task
         })
-        setTasksMonth(tasksData)
+        setTasks(tasksData)
     }
 
     useEffect(() => {
         getTasks()
     }, [selectedDate])
+
     return (
-        <div className={styles.monthWrapper}>
+        <div className={styles.dayWrapper}>
             <Notes user={user} selectedDate={selectedDate} />
             <div className={styles.list}>
                 <div className={styles.listHeader}>
@@ -71,12 +70,11 @@ const Month = ({user}) => {
                         <DatePicker
                             value={selectedDate}
                             onChange={handleDateChange}
-                            format="MMM"
+                            format="d MMM yyyy"
                             cancelLabel="отмена"
-                            views={['month']}
                         />
                     </MuiPickersUtilsProvider>
-                    <h2>Задачи на месяц</h2>
+                    <h2>Задачи на день</h2>
                     <Button variant="contained"
                             color="primary"
                             onClick={() => setModalOpen(true)}
@@ -93,18 +91,14 @@ const Month = ({user}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tasksMonth && tasksMonth.map(task => (
+                            {tasks && tasks.map(task => (
                                 <TableRow key={task._id}>
                                     <TableCell className={styles.statusCell}>
-                                        <FormControlLabel
-                                            control={
                                                 <Checkbox
                                                     checked={task.isReady}
                                                     onChange={e => changeTaskStatus(task._id, e.target.checked)}
                                                     color="primary"
                                                 />
-                                            }
-                                        />
                                     </TableCell>
                                     <TableCell>{task.title}</TableCell>
                                 </TableRow>
@@ -113,7 +107,11 @@ const Month = ({user}) => {
                     </Table>
                 </TableContainer>
             </div>
+
+            <div className={styles.datesAndBuy}>
                 <Dates user={user} selectedDate={selectedDate} />
+                <Buy user={user} selectedDate={selectedDate}/>
+            </div>
             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                 <form
                     className={styles.modalForm}
@@ -124,15 +122,14 @@ const Month = ({user}) => {
                         label="Добавить задачу"
                         placeholder="задача"
                         required
-                        value={taskMonthAdd}
+                        value={taskTitle}
                         className={styles.modalInput}
-                        onChange={event => setTaskMonthAdd(event.target.value)}
+                        onChange={event => setTitle(event.target.value)}
                     />
                     <Button
                         variant="outlined"
                         color="primary"
                         type="submit"
-                        /*className={styles.logbutton}*/
                     >
                         Добавить
                     </Button>
@@ -143,4 +140,4 @@ const Month = ({user}) => {
     );
 }
 
-export default Month;
+export default Day;

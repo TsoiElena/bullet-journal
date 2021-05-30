@@ -5,15 +5,20 @@ import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ruLocale from "date-fns/locale/ru";
 import {
-    Button, Checkbox, FormControl,
-    FormControlLabel, MenuItem, Modal,
-    Paper, Select,
+    Button,
+    Checkbox,
+    FormControl,
+    MenuItem,
+    Modal,
+    Paper,
+    Select,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
-    TableRow, TextField
+    TableRow,
+    TextField
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -106,15 +111,11 @@ const Books = ({user}) => {
                             {books && books.map(book => (
                                 <TableRow key={book._id}>
                                     <TableCell className={styles.statusCell}>
-                                        <FormControlLabel
-                                            control={
                                                 <Checkbox
                                                     checked={book.isReady}
                                                     onChange={e => changeBookStatus(book._id, e.target.checked)}
                                                     color="primary"
                                                 />
-                                            }
-                                        />
                                     </TableCell>
                                     <TableCell className={styles.authtorCell}>{book.authtor}</TableCell>
                                     <TableCell>{book.title}</TableCell>

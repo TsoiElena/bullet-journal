@@ -5,12 +5,12 @@ import DateFnsUtils from "@date-io/date-fns";
 import ruLocale from "date-fns/locale/ru";
 import {
     Button, Checkbox,
-    FormControlLabel,
     Modal,
     Paper,
     Table,
     TableBody,
-    TableCell, TableContainer,
+    TableCell,
+    TableContainer,
     TableHead,
     TableRow,
     TextField,
@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import api from "../../api";
-import Multfilms from "./Multfilms/Multfilms";
+import Multfilms from "./Multfilms";
 
 const FilmsAndCartoons = ({user}) => {
     const [films, setFilms] = useState(null)
@@ -109,15 +109,11 @@ const FilmsAndCartoons = ({user}) => {
                             {films && films.map(film => (
                                 <TableRow key={film._id}>
                                     <TableCell className={styles.statusCell}>
-                                        <FormControlLabel
-                                            control={
                                                 <Checkbox
                                                     checked={film.isReady}
                                                     onChange={e => changeFilmStatus(film._id, e.target.checked)}
                                                     color="primary"
                                                 />
-                                            }
-                                        />
                                     </TableCell>
                                     <TableCell>{film.title}</TableCell>
                                     <TableCell className={styles.statusCell}>
@@ -164,7 +160,6 @@ const FilmsAndCartoons = ({user}) => {
                         variant="outlined"
                         color="primary"
                         type="submit"
-                        /*className={styles.logbutton}*/
                     >
                         Добавить
                     </Button>

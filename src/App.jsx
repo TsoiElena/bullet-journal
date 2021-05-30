@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import {Route, BrowserRouter, Switch} from "react-router-dom";
 import {ThemeProvider} from '@material-ui/core/styles';
 import {theme} from './theme'
-import Calendar from "./components/Calendar/Calendar";
-import Day from "./components/Day/Day";
-import Month from "./components/Month/Month";
-import FilmsAndCartoons from "./components/FilmsAndCartoons/FilmsAndCartoons";
-import Books from "./components/Books/Books";
-import Trekers from "./components/Trekers/Trekers";
-import Results from "./components/Results/Results";
-import WelcomePage from "./components/WelcomePage/WelcomePage";
-import LogIn from "./components/LogIn/LogIn";
+import Calendar from "./components/Calendar";
+import Day from "./components/Day";
+import Month from "./components/Month";
+import FilmsAndCartoons from "./components/FilmsAndCartoons";
+import Books from "./components/Books";
+import Treker from "./components/Trekers";
+import Money from "./components/Money";
+import WelcomePage from "./components/WelcomePage";
+import LogIn from "./components/LogIn";
 import AuthCheck from "./components/AuthCheck";
 
 const App = () => {
@@ -50,10 +50,10 @@ const App = () => {
                         <AuthCheck user={user}><Books user={user} /></AuthCheck>
                     </Route>
                     <Route path='/trekers'>
-                        <AuthCheck user={user}><Trekers user={user} /></AuthCheck>
+                        <AuthCheck user={user}><Treker user={user} /></AuthCheck>
                     </Route>
-                    <Route path='/results'>
-                        <AuthCheck user={user}><Results/></AuthCheck>
+                    <Route path='/money'>
+                        <AuthCheck user={user}><Money user={user} /></AuthCheck>
                     </Route>
 
                     <Route path='/log-in'>

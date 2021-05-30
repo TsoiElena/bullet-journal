@@ -11,78 +11,71 @@ import {
     TableHead,
     Modal,
     Button,
-    TableCell, FormControlLabel
+    TableCell
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import api from "../../api";
 import DateFnsUtils from "@date-io/date-fns";
 import ruLocale from "date-fns/locale/ru";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import Birthdays from "./Birthdays/Birthdays";
-import Events from "./Events/Events";
+import Notes from "./Notes";
+import Dates from "./Dates";
 
-const Calendar = ({user}) => {
-    const [tasks, setTasks] = useState(null)
+
+const Month = ({user}) => {
+    const [tasksMonth, setTasksMonth] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
-    const [selectedYear, handleYearChange] = useState(new Date());
     const [selectedDate, handleDateChange] = useState(new Date());
-    const [taskAdd, setTaskAdd] = useState('')
+    const [taskMonthAdd, setTaskMonthAdd] = useState('')
 
     const handleTaskAdd = async (e) => {
         e.preventDefault()
         const response = await api.post('tasks/add', {
-            title: taskAdd,
-            date: selectedYear,
+            title: taskMonthAdd,
+            date: selectedDate,
             userId: user._id,
-            type: 0
+            type: 3
         })
-        setTasks([...tasks, response.data.data])
-        setTaskAdd('')
+        setTasksMonth([...tasksMonth, response.data.data])
+        setTaskMonthAdd('')
         setModalOpen(false)
     }
 
     const getTasks = async () => {
-        const response = await api.post(`tasks/${user._id}`, {year: selectedYear.getFullYear()})
-        setTasks(response.data.data.filter(task => task.type === 0))
+        const response = await api.post(`tasks/month/${user._id}`, {date: selectedDate})
+        setTasksMonth(response.data.data.filter(task => task.type === 3))
     }
 
     const changeTaskStatus = async (taskId, taskStatus) => {
         const response = await api.patch('tasks/', {taskId, taskStatus})
         const {_id, isReady} = response.data.data
-        const tasksData = tasks.map(task => {
+        const tasksData = tasksMonth.map(task => {
             if (task._id === _id) {
                 task.isReady = isReady
             }
             return task
         })
-        setTasks(tasksData)
+        setTasksMonth(tasksData)
     }
 
     useEffect(() => {
         getTasks()
-    }, [selectedYear])
-
+    }, [selectedDate])
     return (
-        <div className={styles.wrapper}>
-            <Birthdays
-                user={user}
-                selectedYear={selectedYear}
-                handleYearChange={handleYearChange}
-                selectedDate={selectedDate}
-                handleDateChange={handleDateChange}
-            />
+        <div className={styles.monthWrapper}>
+            <Notes user={user} selectedDate={selectedDate}/>
             <div className={styles.list}>
                 <div className={styles.listHeader}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
                         <DatePicker
-                            value={selectedYear}
-                            onChange={handleYearChange}
-                            format="yyyy"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            format="MMM"
                             cancelLabel="отмена"
-                            views={['year']}
+                            views={['month']}
                         />
                     </MuiPickersUtilsProvider>
-                    <h2>Задачи на год</h2>
+                    <h2>Задачи на месяц</h2>
                     <Button variant="contained"
                             color="primary"
                             onClick={() => setModalOpen(true)}
@@ -99,17 +92,13 @@ const Calendar = ({user}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tasks && tasks.map(task => (
+                            {tasksMonth && tasksMonth.map(task => (
                                 <TableRow key={task._id}>
                                     <TableCell className={styles.statusCell}>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={task.isReady}
-                                                    onChange={e => changeTaskStatus(task._id, e.target.checked)}
-                                                    color="primary"
-                                                />
-                                            }
+                                        <Checkbox
+                                            checked={task.isReady}
+                                            onChange={e => changeTaskStatus(task._id, e.target.checked)}
+                                            color="primary"
                                         />
                                     </TableCell>
                                     <TableCell>{task.title}</TableCell>
@@ -119,13 +108,7 @@ const Calendar = ({user}) => {
                     </Table>
                 </TableContainer>
             </div>
-            <Events
-                user={user}
-                selectedYear={selectedYear}
-                handleYearChange={handleYearChange}
-                selectedDate={selectedDate}
-                handleDateChange={handleDateChange}
-            />
+            <Dates user={user} selectedDate={selectedDate}/>
             <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                 <form
                     className={styles.modalForm}
@@ -136,15 +119,14 @@ const Calendar = ({user}) => {
                         label="Добавить задачу"
                         placeholder="задача"
                         required
-                        value={taskAdd}
+                        value={taskMonthAdd}
                         className={styles.modalInput}
-                        onChange={event => setTaskAdd(event.target.value)}
+                        onChange={event => setTaskMonthAdd(event.target.value)}
                     />
                     <Button
                         variant="outlined"
                         color="primary"
                         type="submit"
-                        /*className={styles.logbutton}*/
                     >
                         Добавить
                     </Button>
@@ -155,4 +137,4 @@ const Calendar = ({user}) => {
     );
 }
 
-export default Calendar;
+export default Month;

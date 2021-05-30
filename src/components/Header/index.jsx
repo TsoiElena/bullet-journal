@@ -18,7 +18,7 @@ const Header = ({user, setUser}) => {
         {name: 'Фильмы/мультфильмы', route: '/films-cartoons'},
         {name: 'Книги', route: '/books'},
         {name: 'Трекеры', route: '/trekers'},
-        {name: 'Результаты', route: '/results'}
+        {name: 'Финансы', route: '/money'}
     ]
 
     const handleLogout = () => {
@@ -63,7 +63,7 @@ const Header = ({user, setUser}) => {
                                     (menuItem) =>
                                         <NavLink key={menuItem.route} to={menuItem.route}
                                                  activeClassName={style.active}>
-                                            <MenuItem>{menuItem.name} </MenuItem>
+                                            <MenuItem onClick={() => setAnchorEl(null)}>{menuItem.name} </MenuItem>
                                         </NavLink>
                                 )}
                                 <MenuItem onClick={handleLogout}>Выход</MenuItem>
